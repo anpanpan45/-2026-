@@ -1,0 +1,15 @@
+{
+  "name": "宅建2026マスター",
+  "short_name": "宅建2026",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3429/3429159.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

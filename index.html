@@ -2,87 +2,240 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宅建試験対策アプリ - 令和8年度版（50問実戦セット）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="宅建対策">
+    <title>宅建試験対策アプリ - 令和8年度版</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='60' fill='white' font-weight='bold' font-family='Arial'>宅</text></svg>">
+
     <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --light: #f8f9fa;
+            --dark: #333;
+            --border: #e0e0e0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
         }
 
         body {
             font-family: 'メイリオ', 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 10px;
-            color: #333;
+            background: linear-gradient(135deg, var(--primary) 0%, #764ba2 100%);
+            color: var(--dark);
+            overflow: hidden;
+            padding-top: max(10px, env(safe-area-inset-top));
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            min-height: 100vh;
+            height: 100%;
             display: flex;
             flex-direction: column;
+            padding: 0;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
+        /* ============ スタート画面 ============ */
+        #start-screen {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow-y: auto;
+            animation: slideUp 0.5s ease;
         }
 
-        .title {
-            font-size: 24px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .start-title {
+            font-size: 32px;
             font-weight: bold;
+            color: var(--primary);
+            text-align: center;
             margin-bottom: 10px;
         }
 
-        .timer {
-            font-size: 32px;
-            font-weight: bold;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 10px;
-            display: inline-block;
+        .start-subtitle {
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 35px;
         }
 
-        .progress-bar {
+        .settings-group {
+            margin-bottom: 30px;
+        }
+
+        .settings-label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 50px;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            background: #f0f0ff;
+            border-color: var(--primary);
+        }
+
+        .checkbox-item input, .radio-item input {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item label, .radio-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            min-height: 50px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .start-btn:active {
+            transform: translateY(0);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ============ クイズ画面 ============ */
+        #quiz-screen {
+            display: none;
+            flex-direction: column;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .quiz-progress {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quiz-timer {
+            font-size: 24px;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+            font-family: 'Courier New', monospace;
+        }
+
+        .progress-bar-container {
             width: 100%;
             height: 8px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            overflow: hidden;
             margin-top: 15px;
+            overflow: hidden;
         }
 
-        .progress-fill {
+        .progress-bar-fill {
             height: 100%;
             background: #4ade80;
-            transition: width 0.3s ease;
+            transition: width 0.5s ease;
         }
 
-        .content {
+        .quiz-content {
             flex: 1;
-            padding: 30px 20px;
             overflow-y: auto;
+            padding: 30px 25px;
         }
 
-        .question-container {
+        .question-card {
             display: none;
         }
 
-        .question-container.active {
+        .question-card.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
@@ -96,1093 +249,1039 @@
             }
         }
 
-        .question-header {
-            margin-bottom: 25px;
-        }
-
-        .question-number {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .question-category {
+        .category-badge {
             display: inline-block;
-            background: #667eea;
+            background: var(--primary);
             color: white;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .question-text {
             font-size: 18px;
+            font-weight: 600;
             line-height: 1.6;
             margin-bottom: 25px;
-            font-weight: 500;
+            color: var(--dark);
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
-        .option {
+        .option-wrapper {
             display: flex;
-            align-items: center;
             gap: 10px;
-            padding: 15px;
-            background: #f5f5f5;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .option:hover:not(.answered) {
-            background: #e8f0ff;
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .option.eliminated {
-            opacity: 0.5;
-            background: #e8e8e8;
-            text-decoration: line-through;
-            color: #999;
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
-
-        .option.incorrect {
-            background: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
+            align-items: flex-start;
         }
 
         .eliminate-btn {
             flex-shrink: 0;
-            width: 36px;
-            height: 36px;
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 20px;
+            width: 44px;
+            height: 44px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 20px;
+            color: #999;
             cursor: pointer;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            margin-top: 2px;
         }
 
         .eliminate-btn:hover {
-            background: #c82333;
-            transform: scale(1.1);
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
-        .option.eliminated .eliminate-btn {
-            background: #6c757d;
+        .eliminate-btn.active {
+            background: #ffcdd2;
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
-        .option-letter {
-            flex-shrink: 0;
-            width: 44px;
-            height: 44px;
-            background: #667eea;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 18px;
-            margin-right: 5px;
-        }
-
-        .option.correct .option-letter,
-        .option.incorrect .option-letter {
-            background: transparent;
-            font-size: 24px;
-            width: auto;
-            height: auto;
-            margin-right: 10px;
-        }
-
-        .option.correct .option-letter::before {
-            content: '✓';
-            color: #28a745;
-        }
-
-        .option.incorrect .option-letter::before {
-            content: '✗';
-            color: #dc3545;
-        }
-
-        .option.correct .option-letter,
-        .option.incorrect .option-letter {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .option-content {
+        .option-btn {
             flex: 1;
-            font-size: 16px;
-            line-height: 1.5;
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
         }
 
-        .explanation {
-            margin-top: 20px;
-            padding: 15px;
+        .option-btn:hover:not(.disabled) {
+            background: #e8f0ff;
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .option-btn.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .option-btn.eliminated {
+            opacity: 0.5;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .option-btn.correct {
+            background: #d4edda;
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background: #f8d7da;
+            border-color: var(--danger);
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .explanation-box {
             background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
             border-radius: 8px;
+            margin-bottom: 20px;
             display: none;
             animation: slideDown 0.3s ease;
-        }
-
-        .explanation.show {
-            display: block;
         }
 
         @keyframes slideDown {
             from {
                 opacity: 0;
                 max-height: 0;
+                margin-bottom: 0;
             }
             to {
                 opacity: 1;
                 max-height: 500px;
+                margin-bottom: 20px;
             }
+        }
+
+        .explanation-box.show {
+            display: block;
         }
 
         .explanation-title {
             font-weight: bold;
-            margin-bottom: 8px;
             color: #856404;
+            margin-bottom: 8px;
         }
 
         .explanation-content {
+            font-size: 14px;
             color: #856404;
-            font-size: 15px;
             line-height: 1.6;
         }
 
-        .navigation {
+        .quiz-nav {
             display: flex;
             gap: 10px;
-            margin-top: 30px;
-            justify-content: center;
+            padding: 20px 25px;
+            border-top: 1px solid var(--border);
         }
 
-        .btn {
-            padding: 15px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-width: 120px;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-prev {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-prev:hover:not(:disabled) {
-            background: #5a6268;
-        }
-
-        .btn-next {
-            background: #667eea;
-            color: white;
+        .nav-btn {
             flex: 1;
-            max-width: 300px;
+            padding: 12px 20px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 50px;
+            font-size: 15px;
         }
 
-        .btn-next:hover:not(:disabled) {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .nav-btn:hover:not(:disabled) {
+            background: white;
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
-        .btn:disabled {
+        .nav-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .result-screen {
+        .nav-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        /* ============ リザルト画面 ============ */
+        #result-screen {
             display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 40px 25px;
             text-align: center;
-            padding: 40px 20px;
-            animation: fadeIn 0.5s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease;
         }
 
-        .result-screen.show {
-            display: block;
-        }
-
-        .result-score {
-            font-size: 48px;
+        .result-title {
+            font-size: 28px;
             font-weight: bold;
-            color: #667eea;
-            margin: 20px 0;
+            color: var(--primary);
+            margin-bottom: 25px;
         }
 
-        .result-message {
-            font-size: 20px;
+        .score-display {
+            font-size: 56px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 25px 0;
+        }
+
+        .score-label {
+            font-size: 16px;
             color: #666;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
-        .result-time {
-            font-size: 18px;
-            color: #999;
-            margin: 15px 0;
-        }
-
-        .category-stats {
-            margin-top: 40px;
-            text-align: left;
-            background: #f8f9fa;
-            padding: 25px;
+        .result-details {
+            background: var(--light);
+            padding: 20px;
             border-radius: 12px;
+            margin: 25px 0;
+            width: 100%;
         }
 
-        .category-stat {
+        .detail-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+            font-size: 15px;
         }
 
-        .category-stat:last-child {
-            border-bottom: none;
+        .detail-item:not(:last-child) {
+            border-bottom: 1px solid var(--border);
         }
 
-        .stat-name {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .stat-bar {
-            flex: 1;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin: 0 15px;
-            overflow: hidden;
-        }
-
-        .stat-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.5s ease;
-        }
-
-        .stat-percent {
-            font-weight: bold;
-            min-width: 50px;
-            text-align: right;
-            color: #667eea;
-        }
-
-        .result-actions {
-            margin-top: 40px;
-        }
-
-        .btn-restart {
-            background: #667eea;
-            color: white;
+        .result-message {
             font-size: 18px;
-            padding: 20px 40px;
+            font-weight: 600;
+            margin: 20px 0;
+            color: var(--dark);
         }
 
-        .btn-restart:hover {
-            background: #5568d3;
+        .result-button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            width: 100%;
         }
 
+        .result-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 50px;
+        }
+
+        .result-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .result-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .result-btn.secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .result-btn.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* レスポンシブ */
         @media (max-width: 600px) {
-            .title {
-                font-size: 20px;
+            body {
+                padding-top: max(5px, env(safe-area-inset-top));
+                padding-left: max(5px, env(safe-area-inset-left));
+                padding-right: max(5px, env(safe-area-inset-right));
             }
 
-            .timer {
-                font-size: 28px;
+            .start-title {
+                font-size: 26px;
             }
 
             .question-text {
                 font-size: 16px;
             }
 
-            .content {
+            .option-btn {
+                font-size: 14px;
+            }
+
+            .start-btn, .nav-btn, .result-btn {
+                font-size: 14px;
+            }
+
+            .quiz-header {
+                padding: 15px 20px;
+            }
+
+            .quiz-content {
                 padding: 20px 15px;
             }
 
-            .option {
-                padding: 12px;
+            .quiz-nav {
+                padding: 15px 20px;
             }
 
-            .option-content {
-                font-size: 15px;
+            #start-screen {
+                padding: 30px 20px;
             }
 
-            .btn {
-                padding: 12px 20px;
-                font-size: 15px;
-                min-height: 44px;
+            #result-screen {
+                padding: 30px 20px;
             }
 
-            .header {
-                padding: 15px;
+            .result-title {
+                font-size: 24px;
             }
+
+            .score-display {
+                font-size: 48px;
+            }
+        }
+
+        /* スクロール */
+        .quiz-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .quiz-content::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        .quiz-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .quiz-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="title">🏠 宅建試験対策アプリ</div>
-            <div class="subtitle" style="font-size: 13px; opacity: 0.9;">令和8年度（2026年度）版 - 実戦50問セット</div>
-            <div class="timer" id="timer">00:00</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+        <!-- スタート画面 -->
+        <div id="start-screen">
+            <div class="start-title">🏠 宅建対策</div>
+            <div class="start-subtitle">令和8年度版 - 実戦問題で合格を目指そう！</div>
+
+            <!-- 分野選択 -->
+            <div class="settings-group">
+                <div class="settings-label">📚 学習分野を選択</div>
+                <div class="checkbox-group" id="category-checkboxes">
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="権利関係" checked> <label>権利関係（民法等）</label>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="宅建業法" checked> <label>宅建業法</label>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="法令上の制限" checked> <label>法令上の制限</label>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="税・統計" checked> <label>税・統計その他</label>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" value="5問免除" checked> <label>5問免除項目</label>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 問題数選択 -->
+            <div class="settings-group">
+                <div class="settings-label">🎯 問題数を選択</div>
+                <div class="radio-group" id="question-count-radios">
+                    <label class="radio-item">
+                        <input type="radio" name="count" value="5"> <label>5問</label>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="count" value="10"> <label>10問</label>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="count" value="20"> <label>20問</label>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="count" value="all" checked> <label>全問挑戦</label>
+                    </label>
+                </div>
+            </div>
+
+            <button class="start-btn" onclick="startQuiz()">💪 学習を開始</button>
+        </div>
+
+        <!-- クイズ画面 -->
+        <div id="quiz-screen">
+            <div class="quiz-header">
+                <div class="quiz-progress"><span id="current-q">1</span> / <span id="total-q">50</span></div>
+                <div class="quiz-timer" id="timer">00:00</div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+
+            <div class="quiz-content" id="quiz-content"></div>
+
+            <div class="quiz-nav">
+                <button class="nav-btn" id="prev-btn" onclick="prevQuestion()" disabled>← 前へ</button>
+                <button class="nav-btn primary" id="next-btn" onclick="nextQuestion()" disabled>次へ →</button>
             </div>
         </div>
 
-        <div class="content">
-            <div id="questionsArea"></div>
-            <div class="result-screen" id="resultScreen">
-                <div style="font-size: 28px; margin-bottom: 20px;">🎉 テスト完了！</div>
-                <div class="result-score"><span id="resultScore">0</span>/50</div>
-                <div class="result-message" id="resultMessage"></div>
-                <div class="result-time">⏱️ 所要時間：<span id="resultTime">0:00</span></div>
-                <div class="category-stats" id="categoryStats"></div>
-                <div class="result-actions">
-                    <button class="btn btn-restart" onclick="location.reload()">🔄 もう一度チャレンジ</button>
+        <!-- リザルト画面 -->
+        <div id="result-screen">
+            <div class="result-title">🎉 テスト完了！</div>
+            <div class="score-label">あなたの成績</div>
+            <div class="score-display"><span id="final-score">0</span> / <span id="total-score">50</span></div>
+            <div class="result-details">
+                <div class="detail-item">
+                    <span>正答率</span>
+                    <strong id="accuracy">0%</strong>
                 </div>
+                <div class="detail-item">
+                    <span>所要時間</span>
+                    <strong id="result-time">0:00</strong>
+                </div>
+            </div>
+            <div class="result-message" id="result-message"></div>
+            <div class="result-button-group">
+                <button class="result-btn secondary" onclick="backToMenu()">📋 メニューに戻る</button>
+                <button class="result-btn primary" onclick="location.reload()">🔄 もう一度挑戦</button>
             </div>
         </div>
     </div>
 
     <script>
-        // 令和8年度実戦問題（50問）
-        const questions = [
-            // 権利関係（14問）
+        // ============ 問題データ（50問以上） ============
+        const allQuizData = [
+            // 権利関係（12問）
             {
-                id: 1,
                 category: "権利関係",
-                number: "第1問",
-                text: "改正民法における共有物の管理について、共有者が単独で行える行為は次のうちどれか？",
-                options: ["共有物の全部を売却する", "共有物の保存行為（修繕等）", "共有物の性質を変更する", "共有物に担保権を設定する"],
+                q: "改正民法における共有物の管理について、共有者が単独で行える行為は次のうちどれか。",
+                choices: ["共有物の全部を売却する", "共有物の保存行為（修繕等）", "共有物の性質を変更する"],
                 correct: 1,
-                explanation: "改正民法第251条により、共有物の保存行為（修理や保存）は各共有者が単独で行うことができます。これは共有物の現状を維持する行為に限定されます。"
+                exp: "共有物の保存行為は各共有者が単独で行うことができます。"
             },
             {
-                id: 2,
                 category: "権利関係",
-                number: "第2問",
-                text: "民法改正で新たに導入された『所有者不明土地の利用権』制度の目的は？",
-                options: ["所有者不明土地の完全没収", "公的利用等のための利用を可能にする", "買戻し特約の廃止", "相続放棄の義務化"],
+                q: "民法改正で新たに導入された『所有者不明土地の利用権』制度の目的として正しいのはどれか。",
+                choices: ["所有者不明土地の完全没収", "公的利用等のための利用を可能にする", "買戻し特約の廃止"],
                 correct: 1,
-                explanation: "2023年に施行された改正民法・民事基本法制は、所有者不明土地を公的利用や地域の利益のために利用可能にする制度を導入しました。"
+                exp: "所有者不明土地を公的利用や地域の利益のために利用可能にする制度です。"
             },
             {
-                id: 3,
                 category: "権利関係",
-                number: "第3問",
-                text: "改正民法で導入された『配偶者長期居住権』について、その存続期間は最長何年か？",
-                options: ["5年", "10年", "終身", "20年"],
+                q: "配偶者長期居住権について、その存続期間として正しいのはどれか。",
+                choices: ["5年", "10年", "終身"],
                 correct: 2,
-                explanation: "配偶者長期居住権は、被相続人の遺産である建物に、配偶者が相続開始時から終身にわたって無償で居住できる権利です。遺産分割協議が成立するまでは直ちに消滅しません。"
+                exp: "配偶者長期居住権は配偶者が終身にわたり居住できる権利です。"
             },
             {
-                id: 4,
                 category: "権利関係",
-                number: "第4問",
-                text: "民法改正における遺産分割協議について、成人年齢の引き下げが適用される場合、協議への参加可能年齢は？",
-                options: ["15歳以上", "16歳以上", "18歳以上", "20歳以上"],
+                q: "区分所有法における建替え決議について必要な賛成は何分の何以上か。",
+                choices: ["2分の1以上", "3分の2以上", "4分の3以上"],
                 correct: 2,
-                explanation: "2022年4月以降、成人年齢が20歳から18歳に引き下げられたため、遺産分割協議に参加できる年齢も18歳以上となります。"
+                exp: "区分所有法第62条により4分の3以上の賛成が必要とされています。"
             },
             {
-                id: 5,
                 category: "権利関係",
-                number: "第5問",
-                text: "区分所有法における建替え決議について、所有者の何分の何以上の賛成が必要か？",
-                options: ["2分の1以上", "3分の2以上", "4分の3以上", "5分の4以上"],
-                correct: 2,
-                explanation: "区分所有法第62条により、建替え決議には区分所有者及び議決権の4分の3以上の賛成が必要とされています。"
-            },
-            {
-                id: 6,
-                category: "権利関係",
-                number: "第6問",
-                text: "区分所有法における専有部分と共用部分の区分について、次のうち共用部分に該当するのはどれか？",
-                options: ["各戸のバルコニー", "建物の主要構造部（柱、梁等）", "各戸内のキッチン", "各戸の玄関ドア内側"],
-                correct: 1,
-                explanation: "区分所有法第4条により、共用部分とは「建物の主要構造部」等を含み、各戸のバルコニーは建物の外側でも専有部分に含まれる場合があります。"
-            },
-            {
-                id: 7,
-                category: "権利関係",
-                number: "第7問",
-                text: "民法における買戻し特約について、買戻期間の最大期限は法律で何年と定められているか？",
-                options: ["3年", "5年", "10年", "法定期限なし"],
+                q: "民法における買戻し特約について、買戻期間の最大期限は法律で何年と定められているか。",
+                choices: ["3年", "5年", "10年"],
                 correct: 0,
-                explanation: "民法第579条により、買戻し特約の期間は3年を超えることができません。契約で3年以上の期間を定めた場合でも、3年に短縮されます。"
+                exp: "民法第579条により、買戻し特約の期間は3年を超えることができません。"
             },
             {
-                id: 8,
                 category: "権利関係",
-                number: "第8問",
-                text: "民法における抵当権について、抵当権が実行された場合、抵当権者の地位はどうなるか？",
-                options: ["担保物から完全に取り上げられる", "抵当権は消滅する", "新たな抵当権が設定される", "優先弁済権は消滅しない"],
+                q: "民法における相続欠格について、被相続人を殺害した者の相続権はどうなるか。",
+                choices: ["減額される", "完全に失われる", "一定期間後に回復される"],
                 correct: 1,
-                explanation: "抵当権の実行（競売）により、抵当権は消滅します。競売代金から配当を受けることになります。"
+                exp: "相続欠格者は相続権を完全に失い、回復することはできません。"
             },
             {
-                id: 9,
                 category: "権利関係",
-                number: "第9問",
-                text: "民法における相続欠格について、被相続人を殺害した者の相続権について正しいのはどれか？",
-                options: ["減額される", "完全に失われる", "家庭裁判所の許可で回復できる", "一定期間後に回復される"],
+                q: "民法における債権譲渡について、債務者の同意がない場合の効力として正しいのはどれか。",
+                choices: ["完全に無効", "譲渡人と譲受人間では有効だが債務者に対抗できない", "債務者の異議で無効"],
                 correct: 1,
-                explanation: "民法第891条により、被相続人を殺害した者等は相続欠格者となり、相続権を完全に失います。この資格喪失は自動的に生じ、家庭裁判所の許可等により回復することはできません。"
+                exp: "債権譲渡は債務者の同意がなくても有効ですが、通知がなければ対抗できません。"
             },
             {
-                id: 10,
                 category: "権利関係",
-                number: "第10問",
-                text: "民法における債権譲渡について、債務者の同意がない場合の譲渡の効力は？",
-                options: ["完全に無効", "譲渡人と譲受人間では有効だが、債務者に対抗できない", "債務者の異議で無効になる", "家庭裁判所の許可で有効"],
+                q: "民法における消滅時効（売買代金債権）の期間として正しいのはどれか。",
+                choices: ["1年", "2年", "3年", "5年"],
                 correct: 1,
-                explanation: "民法第467条により、債権譲渡は債務者の同意がなくても有効ですが、譲渡を債務者に通知しなければ債務者に対抗できません。"
+                exp: "改正民法では売買代金債権の消滅時効は2年とされています。"
             },
             {
-                id: 11,
                 category: "権利関係",
-                number: "第11問",
-                text: "民法における消滅時効（売買代金債権）の期間は何年か？",
-                options: ["1年", "2年", "3年", "5年"],
+                q: "民法における瑕疵担保責任について責任を問える期間として最も適切なのはどれか。",
+                choices: ["3ヶ月", "1年", "2年"],
                 correct: 1,
-                explanation: "改正民法では、商事債権を含めて統一され、通常の債権の消滅時効は5年、短期消滅時効（売買代金等）は2年となっています。"
+                exp: "瑕疵を知った時から1年以内が責任を問える期間です。"
             },
             {
-                id: 12,
                 category: "権利関係",
-                number: "第12問",
-                text: "民法における瑕疵担保責任（契約不適合責任）について、責任を問える期間は最長何年か？",
-                options: ["1年", "2年", "3年", "5年"],
+                q: "民法における占有について間接占有者の権利範囲として正しいのはどれか。",
+                choices: ["物の直接的支配権を有する", "占有補助者を通じた間接的支配のみ", "完全な所有権と同等"],
                 correct: 1,
-                explanation: "改正民法第570条により、売主の担保責任は瑕疵を知った時から1年以内に告知する必要があり、期間は相当期間となります。但し契約不適合の立証責任は買主側にあります。"
+                exp: "間接占有は占有補助者を通じた占有です。"
             },
             {
-                id: 13,
                 category: "権利関係",
-                number: "第13問",
-                text: "民法における占有について、間接占有者の権利範囲として正しいのはどれか？",
-                options: ["物の直接的支配権を有する", "占有補助者を通じた間接的支配のみ", "地上権等の用益物権を有する", "完全な所有権と同等"],
+                q: "民法における代理権がない場合の無権代理人の責任について正しいのはどれか。",
+                choices: ["本人が当然に責任を負う", "無権代理人が相手方に責任を負う", "相手方の過失により免除"],
                 correct: 1,
-                explanation: "民法第180条により、間接占有は占有補助者を通じた占有であり、占有補助者からの返還請求等の法的保護を受けられます。"
+                exp: "無権代理人は本人の追認がない限り相手方に対して責任を負います。"
             },
             {
-                id: 14,
                 category: "権利関係",
-                number: "第14問",
-                text: "民法における代理権の授与について、代理権がない場合の無権代理人の責任は？",
-                options: ["本人が当然に責任を負う", "無権代理人が相手方に対して責任を負う", "相手方の過失により免除される", "家庭裁判所の許可で消滅"],
-                correct: 1,
-                explanation: "民法第117条により、無権代理人は本人の追認がない限り、相手方に対して責任を負います。相手方は無権代理人に対して履行請求や損害賠償請求が可能です。"
+                q: "改正民法における遺産分割協議について成人年齢引き下げの影響として正しいのはどれか。",
+                choices: ["参加可能年齢が18歳以上に変更", "親の同意が常に必要", "年齢制限が廃止"],
+                correct: 0,
+                exp: "成人年齢の引き下げにより、18歳以上が遺産分割協議に参加できます。"
             },
 
-            // 宅建業法（20問）
+            // 宅建業法（15問）
             {
-                id: 15,
                 category: "宅建業法",
-                number: "第15問",
-                text: "令和8年度（2026年度）における空き家の売買仲介手数料の特例について、800万円以下の物件の上限は？",
-                options: ["売買価格の2%", "売買価格の2.5%", "売買価格の3%", "売買価格の3.6%"],
+                q: "令和8年度における空き家等の売買仲介手数料の特例について800万円以下の物件の上限として正しいのはどれか。",
+                choices: ["売買価格の2%", "売買価格の2.5%", "売買価格の3%"],
                 correct: 1,
-                explanation: "2024年10月の報酬額基準改定により、空き家等特定物件（800万円以下）の売買仲介手数料の上限が2.5%に設定されました。通常物件の3%と異なります。"
+                exp: "2024年10月改定により、空き家等特定物件は2.5%に設定されました。"
             },
             {
-                id: 16,
                 category: "宅建業法",
-                number: "第16問",
-                text: "宅建業法における報酬額基準について、一般的な売買仲介の計算方法として正しいのはどれか（取引価格1,000万円の場合）？",
-                options: ["約30万円", "約100万円", "約165万円", "約200万円"],
+                q: "宅建業法における報酬額基準について一般的な売買仲介の計算方法として最も正しいのはどれか（取引価格1,000万円）。",
+                choices: ["約30万円", "約100万円", "約165万円"],
                 correct: 2,
-                explanation: "取引価格1,000万円の場合、報酬額の上限は『400万円を超える金額×3%』となり、(1,000万-400万)×3%=約180万円ですが、正確には2段階計算となり約165万円です。"
+                exp: "1,000万円の場合、(1,000-400)×3%=約180万円で、正確には約165万円です。"
             },
             {
-                id: 17,
                 category: "宅建業法",
-                number: "第17問",
-                text: "宅建業法における賃貸借仲介の報酬額上限について、月額賃料20万円の場合の上限は？",
-                options: ["10万円", "11万円", "15万円", "20万円"],
+                q: "35条書面（重要事項説明書）に必ず記載する事項として記載不要なのはどれか。",
+                choices: ["対象不動産の所在地", "購入者の年収", "契約金額"],
+                correct: 1,
+                exp: "購入者の個人情報（年収等）は35条書面に記載する必要がありません。"
+            },
+            {
+                category: "宅建業法",
+                q: "37条書面（契約書）に記載が必須でない事項として正しいのはどれか。",
+                choices: ["代金及び交付方法", "購入者の勤務先", "所有権移転時期"],
+                correct: 1,
+                exp: "購入者の職業・勤務先は37条書面に記載義務がありません。"
+            },
+            {
+                category: "宅建業法",
+                q: "宅建業の免許要件について誤っているのはどれか。",
+                choices: ["宅建士を常勤の従業者として置く", "事務所ごとに宅建士を5人以上置く", "営業保証金を供託する"],
+                correct: 1,
+                exp: "『事務所ごとに5人以上』という要件は存在しません。"
+            },
+            {
+                category: "宅建業法",
+                q: "35条書面の重要事項説明について説明タイミングとして正しいのはどれか。",
+                choices: ["契約当日", "契約前（日数制限なし）", "入居後"],
+                correct: 1,
+                exp: "重要事項説明は契約成立前に宅建士により実施することが必須です。"
+            },
+            {
+                category: "宅建業法",
+                q: "宅建士登録の欠格事由として正しくないのはどれか。",
+                choices: ["未成年者である", "心身障害がある", "禁錮刑に処せられた"],
+                correct: 1,
+                exp: "心身障害の有無は登録要件に含まれません。"
+            },
+            {
+                category: "宅建業法",
+                q: "宅建業の保証協会への加入について正しいのはどれか。",
+                choices: ["全て加入が必須", "任意加入", "都市部のみ義務"],
+                correct: 1,
+                exp: "保証協会への加入は任意ですが、利点があります。"
+            },
+            {
+                category: "宅建業法",
+                q: "保証協会加入時の営業保証金供託額の減額について正しいのはどれか。",
+                choices: ["10%減額", "50%減額", "75%減額"],
+                correct: 1,
+                exp: "保証協会加入により50%が免除されます。"
+            },
+            {
+                category: "宅建業法",
+                q: "宅建業者の媒介契約について有効期間の上限として正しいのはどれか。",
+                choices: ["1ヶ月", "3ヶ月", "6ヶ月"],
+                correct: 1,
+                exp: "一般・専任媒介契約とも3ヶ月が上限です。"
+            },
+            {
+                category: "宅建業法",
+                q: "売買契約のクーリングオフについて適用除外となるのはどれか。",
+                choices: ["購入者が宅建業者の事務所での契約", "購入者が訪問販売での契約", "事業用不動産の契約"],
                 correct: 0,
-                explanation: "賃貸借仲介の報酬額上限は『月額賃料の1.08倍』です。20万円×1.08=21.6万円となりますが、選択肢の正確性を考慮すると約10万円（0.5ヶ月分）です。"
+                exp: "宅建業者の事務所での契約はクーリングオフ適用除外です。"
             },
             {
-                id: 18,
                 category: "宅建業法",
-                number: "第18問",
-                text: "令和8年度における35条書面（重要事項説明書）の電子化について、正しい説明は？",
-                options: ["完全に電子化が義務化された", "書面交付と電子化が選択可能", "電子化は許可されていない", "所有者の同意で電子化可能"],
-                correct: 1,
-                explanation: "宅建業法改正により、35条書面の電子交付が可能になりました。ただし相手方の承諾が必要で、完全に義務化されたわけではありません。"
-            },
-            {
-                id: 19,
-                category: "宅建業法",
-                number: "第19問",
-                text: "35条書面（重要事項説明書）に必ず記載する事項として、次のうち記載不要なのはどれか？",
-                options: ["対象不動産の所在地", "環境基準への適合状況", "購入者の年収", "契約金額"],
+                q: "宅建業法における違約金制限について手付金の額として正しいのはどれか。",
+                choices: ["売買価格の5%以下", "売買価格の10%以下", "売買価格の20%以下"],
                 correct: 2,
-                explanation: "35条書面は不動産の権利状況や法的制限に関する重要事項を記載します。購入者の個人情報（年収等）は記載不要です。"
+                exp: "手付金は売買価格の20%を超えてはならないと定められています。"
             },
             {
-                id: 20,
                 category: "宅建業法",
-                number: "第20問",
-                text: "37条書面（契約書）に記載が必須でない事項は次のうちどれか？",
-                options: ["代金及び交付方法", "引渡時期と所有権移転時期", "契約解除時の違約金", "購入者の勤務先"],
-                correct: 3,
-                explanation: "37条書面は売買契約の当事者間の関係について記載します。購入者の職業・勤務先は記載義務がありません。"
-            },
-            {
-                id: 21,
-                category: "宅建業法",
-                number: "第21問",
-                text: "宅建業の免許要件について、誤っているのはどれか？",
-                options: ["宅建士を常勤の従業者として置く", "営業保証金を供託する", "事務所ごとに宅建士を5人以上置く", "書誌簿（台帳）を備えている"],
-                correct: 2,
-                explanation: "免許要件として『事務所ごとに5人以上』の要件はありません。取引主任者（宅建士）は一定数置く必要がありますが、5人以上とは限りません。"
-            },
-            {
-                id: 22,
-                category: "宅建業法",
-                number: "第22問",
-                text: "宅建士の取引主任者としての責務について、重要事項説明は何日前に行う必要があるか？",
-                options: ["契約当日", "契約前日", "契約前（日数制限なし）", "3営業日前"],
-                correct: 2,
-                explanation: "宅建法第35条により、重要事項説明は『取引開始前』に行う必要があり、具体的な日数制限はありませんが、契約成立前に説明することが必須です。"
-            },
-            {
-                id: 23,
-                category: "宅建業法",
-                number: "第23問",
-                text: "宅建士登録の欠格事由について、次のうち正しくないのはどれか？",
-                options: ["未成年者である", "心身障害がある", "禁錮刑に処せられた", "宅建業法違反で罰金刑に処せられた"],
-                correct: 1,
-                explanation: "宅建士登録の欠格要件に『心身障害があること』は含まれません。成年であれば心身障害の有無は要件になりません。"
-            },
-            {
-                id: 24,
-                category: "宅建業法",
-                number: "第24問",
-                text: "宅建業の保証協会への加入について、加入は義務か任意か？",
-                options: ["全て加入が必須", "都市部の宅建業者のみ義務", "任意加入", "一定資本以上が加入必須"],
-                correct: 2,
-                explanation: "保証協会への加入は任意です。ただし加入すると、営業保証金の供託が免除される等の利点があります。"
-            },
-            {
-                id: 25,
-                category: "宅建業法",
-                number: "第25問",
-                text: "宅建業における保証協会の主な役割として、次のうち誤っているのはどれか？",
-                options: ["会員が供託すべき営業保証金の一部免除", "苦情処理と紛争解決", "宅建業法違反者の罰金決定", "消費者保護基金の運営"],
-                correct: 2,
-                explanation: "保証協会は苦情処理や消費者保護が主務ですが、『罰金決定』は行いません。罰則は行政処分や刑事罰の対象です。"
-            },
-            {
-                id: 26,
-                category: "宅建業法",
-                number: "第26問",
-                text: "宅建業者が保証協会に加入する場合、営業保証金の供託額は通常いくら減額されるか？",
-                options: ["10%", "25%", "50%", "75%"],
-                correct: 2,
-                explanation: "保証協会加入により、営業保証金供託額の50%が免除されます。これにより初期資本負担が軽減されます。"
-            },
-            {
-                id: 27,
-                category: "宅建業法",
-                number: "第27問",
-                text: "宅建業者の媒介契約について、契約の有効期間は最長何ヶ月か？",
-                options: ["1ヶ月", "3ヶ月", "6ヶ月", "12ヶ月"],
-                correct: 1,
-                explanation: "宅建法では一般媒介契約の有効期間を最長3ヶ月と定めています。専属専任媒介契約も同様に3ヶ月が上限です。"
-            },
-            {
-                id: 28,
-                category: "宅建業法",
-                number: "第28問",
-                text: "宅建業における売買契約のクーリングオフについて、適用除外となるのはどれか？",
-                options: ["購入者が宅建業者の事務所での契約", "購入者が他の購入者の住宅訪問での契約", "購入者が指定流通機構に登録済みの契約", "即座に履行された契約"],
+                q: "新規従業者向けの研修について実施時期として正しいのはどれか。",
+                choices: ["入社後1ヶ月以内", "入社後3ヶ月以内", "入社後6ヶ月以内"],
                 correct: 0,
-                explanation: "クーリングオフは『宅建業者の事務所等で契約した場合』は適用除外です。訪問販売や巧妙な勧誘での契約は保護されます。"
+                exp: "新規従業者には入社後1ヶ月以内に8時間以上の研修が義務付けられています。"
             },
             {
-                id: 29,
                 category: "宅建業法",
-                number: "第29問",
-                text: "宅建業法における賃貸借の重要事項説明について、説明タイミングとして正しいのはどれか？",
-                options: ["契約当日", "契約前", "入居後", "1週間以内"],
+                q: "宅建士の更新講習について受講時期として正しいのはどれか。",
+                choices: ["有効期限の30日前から", "有効期限の90日前から", "有効期限の6ヶ月前から"],
                 correct: 1,
-                explanation: "賃貸借でも売買と同様に、契約成立前に宅建士による重要事項説明が必須です。"
-            },
-            {
-                id: 30,
-                category: "宅建業法",
-                number: "第30問",
-                text: "宅建業者が受け取った代金について、いかなる場合でも事業費等に充当してはならない期間は？",
-                options: ["売主に10日以内に支払うまで", "所有権移転日まで", "契約金受取から引渡しまで全期間", "1ヶ月以内"],
-                correct: 2,
-                explanation: "宅建法第41条により、宅建業者が受け取った代金は『売主に支払うまで』は事業費用に充当してはならず、分別口座で保管する必要があります。"
-            },
-            {
-                id: 31,
-                category: "宅建業法",
-                number: "第31問",
-                text: "宅建業法における違約金の制限について、手付金の額は売買価格の何%を超えてはならないか？",
-                options: ["5%以下", "10%以下", "20%以下", "制限なし"],
-                correct: 2,
-                explanation: "手付金は売買価格の20%を超えてはならないと定められており、違約金も通常この範囲内で設定されます。"
-            },
-            {
-                id: 32,
-                category: "宅建業法",
-                number: "第32問",
-                text: "宅建業者の従業者が受けるべき研修期間として、新規従業者向けの8時間研修の実施時期は？",
-                options: ["入社後1ヶ月以内", "入社後3ヶ月以内", "入社後6ヶ月以内", "入社後12ヶ月以内"],
-                correct: 0,
-                explanation: "宅建業法で新規従業者には『入社後1ヶ月以内』に8時間以上の研修が義務付けられています。"
-            },
-            {
-                id: 33,
-                category: "宅建業法",
-                number: "第33問",
-                text: "宅建士の更新講習について、有効期限の満了日までに受講を完了する必要があるが、受講は何日前から可能か？",
-                options: ["30日前から", "60日前から", "90日前から", "6ヶ月前から"],
-                correct: 2,
-                explanation: "宅建士の更新講習は『有効期限の3ヶ月前（90日前）』から受講可能です。5年ごとの更新が必須となります。"
-            },
-            {
-                id: 34,
-                category: "宅建業法",
-                number: "第34問",
-                text: "宅建業法における表示規制について、広告に『新築』と表示できる期間は竣工から何年以内か？",
-                options: ["1年", "2年", "3年", "5年"],
-                correct: 0,
-                explanation: "『新築』という表示は、竣工から『1年以内』の建物に限定されます。1年を超えた建物は『中古』と表示する必要があります。"
+                exp: "更新講習は有効期限の3ヶ月前（90日前）から受講可能です。"
             },
 
-            // 法令上の制限（8問）
+            // 法令上の制限（10問）
             {
-                id: 35,
                 category: "法令上の制限",
-                number: "第35問",
-                text: "盛土規制法における全国一律基準について、規制対象となる盛土の高さは何メートル以上か？",
-                options: ["1メートル", "2メートル", "3メートル", "5メートル"],
+                q: "盛土規制法における全国一律基準について規制対象となる盛土の高さとして正しいのはどれか。",
+                choices: ["1メートル以上", "2メートル以上", "3メートル以上"],
                 correct: 1,
-                explanation: "2023年7月施行の盛土規制法では、高さ2メートル以上かつ面積3,000㎡以上の盛土が全国一律で許可制となります。災害防止が目的です。"
+                exp: "2023年7月施行の盛土規制法では高さ2メートル以上が対象です。"
             },
             {
-                id: 36,
                 category: "法令上の制限",
-                number: "第36問",
-                text: "盛土規制法における許可権限者は誰か？",
-                options: ["市町村長", "都道府県知事", "国土交通大臣", "市町村長または都道府県知事"],
-                correct: 3,
-                explanation: "盛土規制法では許可権限が市町村長と都道府県知事に分かれており、地域によって異なります。"
-            },
-            {
-                id: 37,
-                category: "法令上の制限",
-                number: "第37問",
-                text: "農地法改正により廃止された『農地所有の下限面積要件』について、従来の基準はいくつの段階があったか？",
-                options: ["2段階", "3段階", "5段階", "統一基準のみ"],
-                correct: 0,
-                explanation: "従来は市街化区域（50ａ）と市街化調整区域（1ha）の2段階基準がありましたが、2022年改正で完全に廃止されました。"
-            },
-            {
-                id: 38,
-                category: "法令上の制限",
-                number: "第38問",
-                text: "農地法4条における転用許可について、許可権者は誰か？",
-                options: ["市町村長", "都道府県知事", "農業委員会", "国土交通大臣"],
-                correct: 1,
-                explanation: "農地法4条（農地の転用許可）の許可権者は『都道府県知事』です。農業委員会は審査・同意権のみです。"
-            },
-            {
-                id: 39,
-                category: "法令上の制限",
-                number: "第39問",
-                text: "都市計画法における開発許可の基準について、市街化区域内での開発許可が必要な面積は？",
-                options: ["500㎡以上", "1,000㎡以上", "3,000㎡以上", "5,000㎡以上"],
-                correct: 1,
-                explanation: "市街化区域内では『1,000㎡以上』の開発行為に許可が必要です。市街化調整区域は『1,000㎡以上』で許可要件が異なります。"
-            },
-            {
-                id: 40,
-                category: "法令上の制限",
-                number: "第40問",
-                text: "都市計画法における市街化調整区域での開発許可について、原則として許可できないケースは？",
-                options: ["小規模な住宅建築", "農林漁業用施設", "既存の工場跡地の開発", "大規模な商業施設"],
-                correct: 3,
-                explanation: "市街化調整区域では原則として開発許可が下りません。許可できる場合は『公益上必要な施設』等に限定されます。大規模商業施設は許可されません。"
-            },
-            {
-                id: 41,
-                category: "法令上の制限",
-                number: "第41問",
-                text: "建築基準法における既存不適格建築物について、増改築時の基準適用について正しいのはどれか？",
-                options: ["全て新基準で改築が必須", "増築部分のみ新基準を適用", "既存部分は旧基準のまま可", "建築主の判断で選択可"],
-                correct: 1,
-                explanation: "既存不適格建築物を増改築する場合、『増築部分のみ新基準を適用』し、既存部分は原則として旧基準のまま認められます。"
-            },
-            {
-                id: 42,
-                category: "法令上の制限",
-                number: "第42問",
-                text: "国土法における先買い権について、対象となる土地面積の下限は？",
-                options: ["100㎡以上", "500㎡以上", "1,000㎡以上", "地域により異なる"],
+                q: "盛土規制法における許可権限者として正しいのはどれか。",
+                choices: ["市町村長", "都道府県知事", "市町村長または都道府県知事"],
                 correct: 2,
-                explanation: "国土利用計画法による先買い権の対象は『1,000㎡以上』の土地取得です。都道府県により基準が異なる場合があります。"
+                exp: "許可権限が市町村長と都道府県知事に分かれています。"
+            },
+            {
+                category: "法令上の制限",
+                q: "農地法改正により廃止された『農地所有の下限面積要件』について従来の基準としてどうだったか。",
+                choices: ["統一基準のみ", "2段階基準", "3段階以上の基準"],
+                correct: 1,
+                exp: "従来は市街化区域50aと市街化調整区域1haの2段階でしたが廃止されました。"
+            },
+            {
+                category: "法令上の制限",
+                q: "農地法4条における転用許可について許可権者として正しいのはどれか。",
+                choices: ["市町村長", "都道府県知事", "農業委員会"],
+                correct: 1,
+                exp: "農地法4条の許可権者は都道府県知事です。"
+            },
+            {
+                category: "法令上の制限",
+                q: "都市計画法における開発許可の基準について市街化区域内での許可が必要な面積として正しいのはどれか。",
+                choices: ["500㎡以上", "1,000㎡以上", "3,000㎡以上"],
+                correct: 1,
+                exp: "市街化区域内では1,000㎡以上の開発行為に許可が必要です。"
+            },
+            {
+                category: "法令上の制限",
+                q: "市街化調整区域での開発許可について原則として許可できないケースとして正しいのはどれか。",
+                choices: ["小規模住宅建築", "農林漁業用施設", "大規模商業施設"],
+                correct: 2,
+                exp: "市街化調整区域では原則開発許可が下りず、大規模商業施設は特に不許可です。"
+            },
+            {
+                category: "法令上の制限",
+                q: "建築基準法における既存不適格建築物について増改築時の基準適用として正しいのはどれか。",
+                choices: ["全て新基準で改築が必須", "増築部分のみ新基準を適用", "既存部分も新基準を適用"],
+                correct: 1,
+                exp: "既存不適格建築物を増改築する場合、増築部分のみ新基準を適用します。"
+            },
+            {
+                category: "法令上の制限",
+                q: "国土利用計画法における先買い権について対象となる土地面積の下限として正しいのはどれか。",
+                choices: ["100㎡以上", "500㎡以上", "1,000㎡以上"],
+                correct: 2,
+                exp: "先買い権の対象は1,000㎡以上の土地取得です。"
+            },
+            {
+                category: "法令上の制限",
+                q: "防火地域内での建築物について次のうち誤っているのはどれか。",
+                choices: ["鉄筋コンクリート造で耐火建築物に限定される", "延べ面積制限がない", "木造建築が許可される"],
+                correct: 2,
+                exp: "防火地域内では原則木造建築は許可されません。"
+            },
+            {
+                category: "法令上の制限",
+                q: "建築基準法における容積率について次の内容として正しいのはどれか。",
+                choices: ["敷地面積に対する延べ床面積の比率", "1階の床面積に対する屋上面積の比率", "高さ制限と同じもの"],
+                correct: 0,
+                exp: "容積率は敷地面積に対する延べ床面積（建坪×階数）の比率です。"
             },
 
-            // 税・その他（3問）
+            // 税・統計（8問）
             {
-                id: 43,
-                category: "税・その他",
-                number: "第43問",
-                text: "令和8年度（2026年度）における住宅ローン控除の適用要件について、最新の控除率は何%か？",
-                options: ["0.5%", "1.0%", "1.5%", "2.0%"],
+                category: "税・統計",
+                q: "令和8年度における住宅ローン控除について最新の控除率として正しいのはどれか。",
+                choices: ["0.5%", "1.0%", "1.5%"],
                 correct: 1,
-                explanation: "2024年度から住宅ローン控除は『1.0%』に統一され、控除額の上限も調整されました。前年度の1.3%から変更になっています。"
+                exp: "2024年度から住宅ローン控除は1.0%に統一されました。"
             },
             {
-                id: 44,
-                category: "税・その他",
-                number: "第44問",
-                text: "登録免許税における不動産売買時の計算について、土地取得の課税標準額は何を基準とするか？",
-                options: ["実際の売買価格", "固定資産税評価額", "公示価格", "鑑定評価額"],
+                category: "税・統計",
+                q: "登録免許税における不動産売買時について土地取得の課税標準額の基準として正しいのはどれか。",
+                choices: ["実際の売買価格", "固定資産税評価額", "公示価格"],
                 correct: 1,
-                explanation: "登録免許税の課税標準額は『固定資産税評価額』です。実際の売買価格ではなく、公的評価額を用いています。"
+                exp: "登録免許税の課税標準額は固定資産税評価額です。"
             },
             {
-                id: 45,
-                category: "税・その他",
-                number: "第45問",
-                text: "不動産鑑定評価基準における『正常価格』と『限定価格』の差異について、最も適切な説明は？",
-                options: ["同じ意味で区別なし", "限定価格は特定の条件下での価格", "正常価格は市場価格、限定価格は相続税評価額", "限定価格は高く、正常価格は安い"],
+                category: "税・統計",
+                q: "不動産鑑定評価基準における『正常価格』と『限定価格』の最大の差異として正しいのはどれか。",
+                choices: ["金額の大小", "評価条件の制約", "評価対象物件の種類"],
                 correct: 1,
-                explanation: "正常価格は通常の市場取引での価格ですが、限定価格は時間的制約や特定条件下での価格として位置づけられます。"
+                exp: "限定価格は特定の時間的制約等がある評価条件下での価格です。"
+            },
+            {
+                category: "税・統計",
+                q: "譲渡所得税における長期保有不動産の税率として正しいのはどれか。",
+                choices: ["約15%", "約20%", "約39%"],
+                correct: 1,
+                exp: "長期譲渡所得は約20%（所得税+住民税）です。"
+            },
+            {
+                category: "税・統計",
+                q: "印紙税における売買契約書について100万円超500万円以下の課税額として正しいのはどれか。",
+                choices: ["500円", "1,000円", "1,500円"],
+                correct: 1,
+                exp: "100万円超500万円以下の売買契約書の印紙税は1,000円です。"
+            },
+            {
+                category: "税・統計",
+                q: "相続税における農地の評価方法として選択可能なのはどれか。",
+                choices: ["宅地比準方式のみ", "農地評価方式のみ", "両方式から選択可能"],
+                correct: 2,
+                exp: "宅地比準方式か農地評価方式のいずれかを選択できます。"
+            },
+            {
+                category: "税・統計",
+                q: "2026年度の住宅・土地統計調査における全国の空き家率として一般的な推定値はどれか。",
+                choices: ["約10%", "約15%", "約20%"],
+                correct: 2,
+                exp: "直近の調査では全国の空き家率が約20%に達しています。"
+            },
+            {
+                category: "税・統計",
+                q: "不動産所得における減価償却費の計算について正しいのはどれか。",
+                choices: ["建物の購入金額全額が対象", "土地を除いた建物金額が対象", "その年の実績による"],
+                correct: 1,
+                exp: "減価償却は土地を除いた建物部分に対して計算します。"
             },
 
-            // 5問免除（5問）
+            // 5問免除（10問）
             {
-                id: 46,
                 category: "5問免除",
-                number: "第46問",
-                text: "令和8年度（2026年度）の住宅・土地統計調査における最新の空き家率（プレースホルダ）は約何%か？",
-                options: ["10%", "15%", "20%", "25%"],
+                q: "住宅金融支援機構の『フラット35』の特徴として最も適切なのはどれか。",
+                choices: ["全期間固定金利型", "変動金利型", "固変金利型"],
+                correct: 0,
+                exp: "フラット35は全期間固定金利が特徴で、35年間金利が変わりません。"
+            },
+            {
+                category: "5問免除",
+                q: "フラット35の融資対象住宅における耐久性基準として鉄筋コンクリート造の場合の基準は何か。",
+                choices: ["30年", "45年", "50年"],
+                correct: 0,
+                exp: "フラット35では鉄筋コンクリート造は30年の耐用年数基準とされています。"
+            },
+            {
+                category: "5問免除",
+                q: "景品表示法における『優良誤認』の定義として最も適切なのはどれか。",
+                choices: ["実際より優良と誤認させる表示", "根拠に基づいた正確な表示", "標準的な仕様表示"],
+                correct: 0,
+                exp: "優良誤認とは実際より『優良』『有利』と誤認させる表示です。"
+            },
+            {
+                category: "5問免除",
+                q: "統計法に基づく『住宅・土地統計調査』の実施周期として正しいのはどれか。",
+                choices: ["毎年", "3年ごと", "5年ごと"],
                 correct: 2,
-                explanation: "直近の調査では全国の空き家率が約20%に達しており、人口減少地域では更に高い傾向にあります。2026年の最新統計はまた公表待ちです。"
+                exp: "住宅・土地統計調査は5年ごとに実施される基幹統計です。"
             },
             {
-                id: 47,
                 category: "5問免除",
-                number: "第47問",
-                text: "住宅金融支援機構における『フラット35』の特徴として、最も適切なのはどれか？",
-                options: ["全期間固定金利型", "5年固定変動型", "変動金利型", "短期プロモーション型"],
-                correct: 0,
-                explanation: "フラット35は『全期間固定金利』が特徴で、35年間の金利が変わらないため、返済計画が立てやすい商品です。"
-            },
-            {
-                id: 48,
-                category: "5問免除",
-                number: "第48問",
-                text: "景品表示法における不当表示の定義として、『優良誤認』に該当する場合は？",
-                options: ["実際より品質が高いと思わせる表示", "根拠に基づいた正確な表示", "競争品との同等性を表示", "標準的な仕様を表示"],
-                correct: 0,
-                explanation: "優良誤認とは、商品・サービスを実際より『優良』『有利』と誤認させる表示を指します。根拠のない表示が対象です。"
-            },
-            {
-                id: 49,
-                category: "5問免除",
-                number: "第49問",
-                text: "住宅金融支援機構における【フラット35】の利用時に必須となる検査について、何回実施されるか？",
-                options: ["1回（完成時）", "2回（着工時・完成時）", "3回（着工・中盤・完成）", "4回以上"],
-                correct: 0,
-                explanation: "フラット35では完成時に1回の『適合審査』が実施されます。建物が基準を満たしているかの確認が目的です。"
-            },
-            {
-                id: 50,
-                category: "5問免除",
-                number: "第50問",
-                text: "宅地造成資金貸付事業について、独立採算で運営されるこの事業の主な目的は？",
-                options: ["高利益の獲得", "勤労者の住宅取得支援", "優良企業への融資", "不動産価格の上昇"],
+                q: "フラット35の融資実行前に実施される『適合審査』について正しいのはどれか。",
+                choices: ["着工時に1回", "完成時に1回", "着工時と完成時に各1回"],
                 correct: 1,
-                explanation: "住宅金融支援機構の勤労者向け融資（宅地造成資金貸付等）は、一般的な民間金融では対応困難な層の住宅取得を支援することが目的です。"
+                exp: "フラット35は完成時に1回の適合審査が実施されます。"
+            },
+            {
+                category: "5問免除",
+                q: "宅地造成資金貸付事業（住宅金融支援機構）の主な目的として最も適切なのはどれか。",
+                choices: ["高利益獲得", "勤労者の住宅取得支援", "企業財務支援"],
+                correct: 1,
+                exp: "勤労者の住宅取得支援が主な政策目的です。"
+            },
+            {
+                category: "5問免除",
+                q: "景品表示法における『有利誤認』の定義として最も適切なのはどれか。",
+                choices: ["商品の品質を実際より優良と表示", "取引条件を実際より有利と表示", "価格を高めに表示"],
+                correct: 1,
+                exp: "有利誤認とは取引条件を実際より有利と誤認させる表示です。"
+            },
+            {
+                category: "5問免除",
+                q: "住宅ローン減税について最新の対象住宅の床面積基準として正しいのはどれか。",
+                choices: ["50㎡以上", "75㎡以上", "100㎡以上"],
+                correct: 0,
+                exp: "最新基準では住宅ローン減税対象は50㎡以上とされています。"
+            },
+            {
+                category: "5問免除",
+                q: "統計法における『統計調査』の実施者として正しいのはどれか。",
+                choices: ["民間企業のみ", "国及び地方公共団体", "個人でも可能"],
+                correct: 1,
+                exp: "正式な統計調査は国と地方公共団体により実施されます。"
             }
         ];
 
-        // グローバル変数
-        let currentQuestion = 0;
-        let answers = [];
-        let eliminations = [];
+        // ============ グローバル変数 ============
+        let selectedCategories = ['権利関係', '宅建業法', '法令上の制限', '税・統計', '5問免除'];
+        let selectedCount = 50;
+        let quizData = [];
+        let currentIdx = 0;
+        let score = 0;
         let startTime = null;
         let timerInterval = null;
-        const categoryScores = {};
 
-        // 初期化
-        function init() {
-            answers = new Array(questions.length).fill(null);
-            eliminations = questions.map(() => [false, false, false, false]);
-            
-            questions.forEach(q => {
-                if (!categoryScores[q.category]) {
-                    categoryScores[q.category] = { correct: 0, total: 0 };
-                }
-            });
+        // ============ Fisher-Yatesシャッフル ============
+        function shuffleArray(arr) {
+            const result = [...arr];
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result;
+        }
 
+        // ============ スタート処理 ============
+        function startQuiz() {
+            // 分野選択を取得
+            selectedCategories = Array.from(document.querySelectorAll('#category-checkboxes input:checked'))
+                .map(el => el.value);
+
+            // 問題数を取得
+            const countSelected = document.querySelector('#question-count-radios input:checked').value;
+            selectedCount = countSelected === 'all' ? 50 : parseInt(countSelected);
+
+            if (selectedCategories.length === 0) {
+                alert('最低1つの分野を選択してください');
+                return;
+            }
+
+            // 選択された分野のみフィルター
+            let filtered = allQuizData.filter(q => selectedCategories.includes(q.category));
+
+            // シャッフルして問題数に合わせる
+            quizData = shuffleArray(filtered).slice(0, selectedCount);
+
+            // 画面遷移
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'flex';
+
+            document.getElementById('total-q').innerText = quizData.length;
+            document.getElementById('total-score').innerText = quizData.length;
+
+            currentIdx = 0;
+            score = 0;
             startTime = Date.now();
-            renderQuestions();
-            showQuestion(0);
+
+            renderQuestion();
             startTimer();
         }
 
-        // 問題のレンダリング
-        function renderQuestions() {
-            const questionsArea = document.getElementById('questionsArea');
-            questionsArea.innerHTML = questions.map((q, idx) => `
-                <div class="question-container" id="question-${idx}">
-                    <div class="question-header">
-                        <div class="question-number">${q.number}</div>
-                        <div class="question-category">${q.category}</div>
-                    </div>
-                    <div class="question-text">${q.text}</div>
-                    <div class="options" id="options-${idx}">
-                        ${q.options.map((opt, optIdx) => `
-                            <div class="option" id="option-${idx}-${optIdx}" data-question="${idx}" data-option="${optIdx}">
-                                <button class="eliminate-btn" onclick="eliminateOption(${idx}, ${optIdx}, event)">×</button>
-                                <div class="option-letter">${String.fromCharCode(65 + optIdx)}</div>
-                                <div class="option-content">${opt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="explanation" id="explanation-${idx}">
-                        <div class="explanation-title">解説</div>
-                        <div class="explanation-content">${q.explanation}</div>
-                    </div>
-                    <div class="navigation">
-                        <button class="btn btn-prev" onclick="prevQuestion()" ${idx === 0 ? 'disabled' : ''}>← 前へ</button>
-                        <button class="btn btn-next" onclick="nextQuestion()" id="next-btn-${idx}">${idx === questions.length - 1 ? '提出する' : '次へ'}</button>
-                    </div>
+        // ============ タイマー ============
+        function startTimer() {
+            const timerEl = document.getElementById('timer');
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const m = Math.floor(elapsed / 60).toString().padStart(2, '0');
+                const s = (elapsed % 60).toString().padStart(2, '0');
+                timerEl.innerText = `${m}:${s}`;
+            }, 100);
+        }
+
+        // ============ 問題レンダリング ============
+        function renderQuestion() {
+            const q = quizData[currentIdx];
+            const content = document.getElementById('quiz-content');
+
+            document.getElementById('current-q').innerText = currentIdx + 1;
+
+            const progress = ((currentIdx + 1) / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+
+            let choicesHtml = q.choices.map((choice, i) => `
+                <div class="option-wrapper">
+                    <button class="eliminate-btn" onclick="toggleEliminate(this)">×</button>
+                    <button class="option-btn" onclick="selectAnswer(${i}, this)">${choice}</button>
                 </div>
             `).join('');
 
-            document.querySelectorAll('.option:not(.answered)').forEach(opt => {
-                opt.addEventListener('click', function(e) {
-                    if (e.target.closest('.eliminate-btn')) return;
-                    const qIdx = parseInt(this.dataset.question);
-                    const optIdx = parseInt(this.dataset.option);
-                    selectOption(qIdx, optIdx);
-                });
-            });
+            content.innerHTML = `
+                <div class="question-card active">
+                    <div class="category-badge">${q.category}</div>
+                    <div class="question-text">${q.q}</div>
+                    <div class="options" id="options-container">${choicesHtml}</div>
+                    <div class="explanation-box" id="explanation-box">
+                        <div class="explanation-title">解説</div>
+                        <div class="explanation-content">${q.exp}</div>
+                    </div>
+                </div>
+            `;
+
+            updateNavButtons();
         }
 
-        // 問題の表示
-        function showQuestion(idx) {
-            document.querySelectorAll('.question-container').forEach(el => el.classList.remove('active'));
-            document.getElementById(`question-${idx}`).classList.add('active');
+        // ============ 選択肢選択 ============
+        function selectAnswer(idx, btn) {
+            const card = btn.closest('.question-card');
+            if (card.classList.contains('answered')) return;
 
-            const prevBtn = document.querySelector('.btn-prev');
-            if (prevBtn) {
-                prevBtn.disabled = idx === 0;
-            }
+            const q = quizData[currentIdx];
+            const optionsContainer = document.getElementById('options-container');
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
 
-            const nextBtn = document.querySelector('.btn-next');
-            if (nextBtn) {
-                nextBtn.textContent = idx === questions.length - 1 ? '提出する' : '次へ';
-            }
-
-            const progress = ((idx + 1) / questions.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-
-            updateUIForQuestion(idx);
-            document.querySelector('.content').scrollTop = 0;
-        }
-
-        // UI復元
-        function updateUIForQuestion(idx) {
-            for (let optIdx = 0; optIdx < 4; optIdx++) {
-                const opt = document.getElementById(`option-${idx}-${optIdx}`);
-                if (!opt) continue;
-
-                if (eliminations[idx][optIdx]) {
-                    opt.classList.add('eliminated');
-                }
-
-                if (answers[idx] !== null) {
-                    if (optIdx === questions[idx].correct) {
-                        opt.classList.add('correct');
-                    } else if (optIdx === answers[idx]) {
-                        opt.classList.add('incorrect');
-                    }
-                    document.getElementById(`explanation-${idx}`).classList.add('show');
-                }
-            }
-        }
-
-        // 選択肢選択
-        function selectOption(qIdx, optIdx) {
-            if (answers[qIdx] !== null) return;
-
-            const q = questions[qIdx];
-            const isCorrect = optIdx === q.correct;
-
-            answers[qIdx] = optIdx;
-
-            categoryScores[q.category].total++;
-            if (isCorrect) {
-                categoryScores[q.category].correct++;
-            }
-
-            for (let i = 0; i < 4; i++) {
-                const opt = document.getElementById(`option-${qIdx}-${i}`);
-                if (i === q.correct) {
-                    opt.classList.add('correct');
-                } else if (i === optIdx) {
-                    opt.classList.add('incorrect');
-                }
-            }
-
-            document.getElementById(`explanation-${qIdx}`).classList.add('show');
-
-            const nextBtn = document.querySelector('.btn-next');
-            if (nextBtn) {
-                nextBtn.disabled = false;
-            }
-        }
-
-        // 消去法
-        function eliminateOption(qIdx, optIdx, event) {
-            event.stopPropagation();
-            if (answers[qIdx] !== null) return;
-
-            const opt = document.getElementById(`option-${qIdx}-${optIdx}`);
-            eliminations[qIdx][optIdx] = !eliminations[qIdx][optIdx];
-            opt.classList.toggle('eliminated');
-        }
-
-        // 前へ
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                showQuestion(currentQuestion);
-            }
-        }
-
-        // 次へ
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                showQuestion(currentQuestion);
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+                score++;
             } else {
-                finishTest();
+                btn.classList.add('wrong');
+                allBtns[q.correct].classList.add('correct');
+            }
+
+            card.classList.add('answered');
+            document.getElementById('explanation-box').classList.add('show');
+            updateNavButtons();
+        }
+
+        // ============ 消去法 ============
+        function toggleEliminate(btn) {
+            btn.classList.toggle('active');
+            btn.nextElementSibling.classList.toggle('eliminated');
+        }
+
+        // ============ ナビゲーション ============
+        function updateNavButtons() {
+            const card = document.querySelector('.question-card');
+            const isAnswered = card?.classList.contains('answered');
+
+            document.getElementById('prev-btn').disabled = currentIdx === 0;
+            document.getElementById('next-btn').disabled = !isAnswered;
+            document.getElementById('next-btn').innerText = currentIdx === quizData.length - 1 ? '結果を表示' : '次へ →';
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                renderQuestion();
             }
         }
 
-        // テスト終了
-        function finishTest() {
-            clearInterval(timerInterval);
-            const endTime = Date.now();
-            const elapsedSeconds = Math.floor((endTime - startTime) / 1000);
-
-            const correctCount = answers.filter((ans, idx) => ans === questions[idx].correct).length;
-
-            showResultScreen(correctCount, elapsedSeconds);
+        function nextQuestion() {
+            if (currentIdx < quizData.length - 1) {
+                currentIdx++;
+                renderQuestion();
+            } else {
+                showResult();
+            }
         }
 
-        // 結果画面表示
-        function showResultScreen(correctCount, elapsedSeconds) {
-            document.getElementById('questionsArea').style.display = 'none';
-            const resultScreen = document.getElementById('resultScreen');
-            resultScreen.classList.add('show');
+        // ============ リザルト表示 ============
+        function showResult() {
+            clearInterval(timerInterval);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const m = Math.floor(elapsed / 60).toString().padStart(2, '0');
+            const s = (elapsed % 60).toString().padStart(2, '0');
 
-            document.getElementById('resultScore').textContent = correctCount;
+            const accuracy = Math.round((score / quizData.length) * 100);
+
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'flex';
+
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('accuracy').innerText = accuracy + '%';
+            document.getElementById('result-time').innerText = `${m}:${s}`;
 
             let message = '';
-            if (correctCount >= 40) {
+            if (accuracy >= 80) {
                 message = '🌟 素晴らしい！確実に合格圏内です！';
-            } else if (correctCount >= 35) {
-                message = '👍 優秀です！合格の可能性が高いです。';
-            } else if (correctCount >= 30) {
-                message = '📚 良好です。もう少し努力で合格できます。';
-            } else if (correctCount >= 25) {
-                message = '💡 あと少しです。継続的な学習をお勧めします。';
+            } else if (accuracy >= 70) {
+                message = '👍 優秀です！もう少しの努力で合格できます！';
+            } else if (accuracy >= 60) {
+                message = '📚 良好です。もう少し学習を深めましょう。';
+            } else if (accuracy >= 50) {
+                message = '💡 50%達成です。基本を深めて頑張りましょう！';
             } else {
-                message = '💪 基礎から復習して頑張りましょう！';
+                message = '💪 基礎から丁寧に復習して頑張りましょう！';
             }
-            document.getElementById('resultMessage').textContent = message;
 
-            const minutes = Math.floor(elapsedSeconds / 60);
-            const seconds = elapsedSeconds % 60;
-            document.getElementById('resultTime').textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
-
-            const categoryStats = document.getElementById('categoryStats');
-            const categories = ['権利関係', '宅建業法', '法令上の制限', '税・その他', '5問免除'];
-            categoryStats.innerHTML = categories.map(cat => {
-                const score = categoryScores[cat];
-                const percent = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
-                return `
-                    <div class="category-stat">
-                        <div class="stat-name">${cat}</div>
-                        <div class="stat-bar">
-                            <div class="stat-fill" style="width: ${percent}%"></div>
-                        </div>
-                        <div class="stat-percent">${score.correct}/${score.total}</div>
-                    </div>
-                `;
-            }).join('');
-
-            document.querySelector('.content').scrollTop = 0;
+            document.getElementById('result-message').innerText = message;
         }
 
-        // タイマー
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                const minutes = Math.floor(elapsed / 60);
-                const seconds = elapsed % 60;
-                document.getElementById('timer').textContent = 
-                    String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
-            }, 1000);
+        // ============ メニュー戻る ============
+        function backToMenu() {
+            location.reload();
         }
 
-        // 初期化実行
-        window.addEventListener('load', init);
+        // ============ PWA登録 ============
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {});
+            });
+        }
     </script>
 </body>
 </html>
