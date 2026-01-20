@@ -33,8 +33,11 @@
         <!-- ダッシュボード画面 -->
         <div id="dashboard-screen">
             <div class="dashboard-header">
-                <div class="dashboard-title">📊 学習ダッシュボード</div>
-                <div class="dashboard-subtitle">あなたの学習進捗を見える化</div>
+                <div>
+                    <div class="dashboard-title">📊 学習ダッシュボード</div>
+                    <div class="dashboard-subtitle">あなたの学習進捗を見える化</div>
+                </div>
+                <button class="dashboard-settings-btn" onclick="openSettings()" title="設定">⚙️</button>
             </div>
             <div class="dashboard-content">
                 <div class="radar-chart-container">
@@ -159,7 +162,57 @@
             <div class="history-content" id="history-content">
                 <div class="history-empty">学習履歴がまだありません。問題を解いて記録を残しましょう！</div>
             </div>
+            <div class="history-footer">
+                <button class="history-reset-btn" onclick="openDataResetDialog()">🗑️ データをリセット</button>
+            </div>
         </div>
+
+        <!-- 設定画面 -->
+        <div id="settings-screen" style="display: none;">
+            <div class="settings-header">
+                <div class="settings-title">⚙️ 設定</div>
+                <button class="settings-close-btn" onclick="backToDashboard()">✕</button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <div class="settings-section-title">データ管理</div>
+                    <button class="settings-reset-btn danger" onclick="openDataResetDialog()">
+                        🗑️ すべてのデータをリセット
+                    </button>
+                    <p class="settings-description">学習履歴と統計をすべて削除します。この操作は取り消せません。</p>
+                </div>
+                <div class="settings-section">
+                    <div class="settings-section-title">ℹ️ プライバシーについて</div>
+                    <p class="settings-description">✅ <strong>このアプリはすべてのデータをあなたの端末に保存します。</strong></p>
+                    <p class="settings-description">✅ サーバーにデータが送信されることはありません。</p>
+                    <p class="settings-description">✅ 学習履歴と統計は、このブラウザの localStorage にのみ保存されます。</p>
+                    <p class="settings-description">✅ 別のデバイスやブラウザでは別々に管理されます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- データリセット確認モーダル -->
+        <div id="reset-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚠️ データのリセット</h2>
+                </div>
+                <div class="modal-body">
+                    <p><strong>警告:</strong> 以下のすべてのデータが削除されます：</p>
+                    <ul class="modal-list">
+                        <li>📋 すべての学習履歴</li>
+                        <li>📊 統計データ（正答率、学習時間など）</li>
+                        <li>📈 レーダーチャートのデータ</li>
+                    </ul>
+                    <p><strong>この操作は取り消せません。本当によろしいですか？</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn secondary" onclick="closeDataResetDialog()">キャンセル</button>
+                    <button class="modal-btn danger" onclick="confirmDataReset()">削除する</button>
+                </div>
+            </div>
+        </div>
+        <div id="reset-modal-overlay" class="modal-overlay" style="display: none;" onclick="closeDataResetDialog()"></div>
     </div>
 
     <!-- チャットボットウィジェット -->

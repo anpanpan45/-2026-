@@ -519,6 +519,38 @@ function formatTime(seconds) {
     }
 }
 
+// ============ 設定画面 ============
+function openSettings() {
+    document.getElementById('dashboard-screen').style.display = 'none';
+    document.getElementById('history-screen').style.display = 'none';
+    document.getElementById('settings-screen').style.display = 'flex';
+}
+
+// ============ データリセット機能 ============
+function openDataResetDialog() {
+    document.getElementById('reset-modal').style.display = 'flex';
+    document.getElementById('reset-modal-overlay').style.display = 'block';
+}
+
+function closeDataResetDialog() {
+    document.getElementById('reset-modal').style.display = 'none';
+    document.getElementById('reset-modal-overlay').style.display = 'none';
+}
+
+function confirmDataReset() {
+    // LocalStorage をクリア
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(HISTORY_KEY);
+    
+    // ダイアログを閉じる
+    closeDataResetDialog();
+    
+    // ページをリロードして初期状態に戻す
+    setTimeout(() => {
+        location.reload();
+    }, 300);
+}
+
 // ============ PWA登録 ============
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
