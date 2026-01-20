@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="宅建対策">
-    <title>宅建試験対策アプリ - 令和8年度版</title>
+    
+    <!-- PWA基本設定 -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
+    
+    <!-- iOS PWA対応 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="宅建クエスト">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='60' fill='white' font-weight='bold' font-family='Arial'>宅</text></svg>">
+    
+    <!-- Android PWA対応 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- セキュリティ・プライバシー設定 -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="令和8年度宅建試験対策アプリ。レーダーチャート、学習履歴管理、AIチャットボット搭載。">
+    
+    <title>宅建試験対策アプリ - 令和8年度版</title>
+    
     <!-- Chart.js for Radar Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <link rel="stylesheet" href="./style.css">

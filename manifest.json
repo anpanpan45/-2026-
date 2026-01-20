@@ -1,15 +1,73 @@
 {
-  "name": "宅建2026マスター",
-  "short_name": "宅建2026",
-  "start_url": "index.html",
+  "name": "宅建攻略クエスト",
+  "short_name": "宅建クエスト",
+  "description": "令和8年度宅建試験対策アプリ。レーダーチャート、学習履歴管理、AIチャットボット搭載。",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
-  "theme_color": "#1a73e8",
+  "theme_color": "#667eea",
+  "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3429/3429159.png",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23667eea' width='192' height='192'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='100' fill='white' font-weight='bold' font-family='Arial'>宅</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23667eea' width='512' height='512'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='280' fill='white' font-weight='bold' font-family='Arial'>宅</text></svg>",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "https://via.placeholder.com/192/667eea/ffffff?text=%E5%AE%85",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://via.placeholder.com/512/667eea/ffffff?text=%E5%AE%85",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "https://via.placeholder.com/540x720/667eea/ffffff?text=%E5%AE%85%E5%BB%BA%E3%83%80%E3%83%83%E3%82%B7%E3%83%A5",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "問題を解く",
+      "short_name": "問題",
+      "description": "すぐに宅建問題に挑戦できます",
+      "url": "./index.html?mode=quiz",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23667eea' width='192' height='192'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='100' fill='white' font-weight='bold' font-family='Arial'>?</text></svg>",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "学習履歴を見る",
+      "short_name": "履歴",
+      "description": "これまでの学習記録を確認できます",
+      "url": "./index.html?mode=history",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%2328a745' width='192' height='192'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='100' fill='white' font-weight='bold' font-family='Arial'>📋</text></svg>",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
 }
